@@ -1,2 +1,80 @@
-# discord-ticket-bot
-Discord bot for ticket system with support for creating, managing and tracking support tickets
+# Discord Ticket Bot
+
+بوت ديسكورد احترافي لإنشاء نظام تذاكر للدعم الفني داخل السيرفر الخاص بك.
+
+الميزات:
+- إنشاء تذكرة جديدة عبر الأمر `/ticket`
+- إنشاء قناة خاصة لكل مستخدم
+- تنبيه المشرفين تلقائياً
+- إغلاق وإعادة فتح وحذف التذكرة
+- دعم أزرار تفاعلية داخل القناة
+- إعدادات قابلة للتخصيص عبر متغيرات البيئة
+
+## متطلبات التشغيل
+- Node.js 18 أو أحدث
+- حساب في Discord Developer Portal
+- خادم Discord لك لإنشاء البوت فيه
+
+## الخطوات السريعة
+
+1. انسخ ملف `.env.example` إلى `.env`
+2. ضع بيانات البوت داخل الملف
+3. ثبت الحزم:
+
+```bash
+npm install
+```
+
+4. سجل الأوامر داخل السيرفر:
+
+```bash
+npm run deploy
+```
+
+5. شغّل البوت:
+
+```bash
+npm start
+```
+
+## متغيرات البيئة
+
+```env
+DISCORD_TOKEN=YOUR_BOT_TOKEN
+CLIENT_ID=YOUR_APPLICATION_CLIENT_ID
+GUILD_ID=YOUR_SERVER_ID
+MODERATOR_ROLE_ID=YOUR_MODERATOR_ROLE_ID
+TICKET_CATEGORY_ID=OPTIONAL_CATEGORY_ID
+TICKET_LOG_CHANNEL_ID=OPTIONAL_LOG_CHANNEL_ID
+```
+
+## الأوامر المتاحة
+
+- `/ticket` — إنشاء تذكرة جديدة
+- `/close` — إغلاق التذكرة الحالية
+- `/reopen` — إعادة فتح التذكرة الحالية
+- `/delete` — حذف التذكرة الحالية (للمشرفين فقط)
+
+## ملاحظات مهمة
+
+- إذا لم تحدد `TICKET_CATEGORY_ID` فسيُنشأ البوت فئة باسم `Tickets` تلقائياً.
+- إذا لم تحدد `MODERATOR_ROLE_ID` فسيُسمح لأي عضو لديه صلاحية `Administrator` أو `Manage Guild` بالتعامل مع التذاكر.
+- يمكنك تخصيص اسم الفئة ومراسلات قنوات السجل حسب احتياجك.
+
+## مثال تخصيص سريع
+
+في السيرفر الخاص بك:
+1. اذهب إلى إعدادات السيرفر > الأدوار
+2. أنشئ دوراً باسم `Support` أو `Moderator`
+3. انسخ معرف الدور واضفه إلى `MODERATOR_ROLE_ID`
+4. أنشئ فئة `Tickets` أو استخدم `TICKET_CATEGORY_ID`
+
+## دعم
+
+إذا احتجت إلى تخصيص إضافي مثل:
+- نظام تصنيف التذاكر
+- إرسال رسائل تلقائية عند فتح/إغلاق التذكرة
+- ربط قاعدة بيانات
+- إرسال سجل التذاكر إلى قناتك
+
+فأنا أستطيع إكماله لك مباشرة.

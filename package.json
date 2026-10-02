@@ -1,0 +1,23 @@
+{
+  "name": "discord-ticket-bot",
+  "version": "1.0.0",
+  "description": "Discord support ticket bot",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "deploy": "node src/deploy-commands.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "ticket",
+    "support"
+  ],
+  "author": "saadmachrafi43-tech",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.17.3",
+    "dotenv": "^16.4.5"
+  }
+}
