@@ -1,5 +1,6 @@
 const { REST, Routes } = require('discord.js');
-require('dotenv').config();
+const config = require('./config');
+const logger = require('./utils/logger');
 
 const commands = [
   {
@@ -16,31 +17,29 @@ const commands = [
   },
   {
     name: 'delete',
-    description: 'حذف التذكرة الحالية (المشرفين فقط)',
+    description: 'حذف التذكرة الحالية (المشرفون فقط)',
   },
 ];
 
-const token = process.env.DISCORD_TOKEN;
-const clientId = process.env.CLIENT_ID;
-const guildId = process.env.GUILD_ID;
-
-if (!token || !clientId || !guildId) {
-  console.error('❌ تأكد من وجود: DISCORD_TOKEN, CLIENT_ID, GUILD_ID داخل ملف .env');
+if (!config.token || !config.clientId || !config.guildId) {
+  logger.error('❌ تأكد من وجود: DISCORD_TOKEN, CLIENT_ID, GUILD_ID في .env');
   process.exit(1);
 }
 
-const rest = new REST({ version: '10' }).setToken(token);
+const rest = new REST({ version: '10' }).setToken(config.token);
 
 (async () => {
   try {
-    console.log('🚀 جاري تسجيل الأوامر داخل السيرفر...');
+    logger.info('🚀 جاري تسجيل الأوامر داخل السيرفر...');
 
-    await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+    const data = await rest.put(Routes.applicationGuildCommands(config.clientId, config.guildId), {
       body: commands,
     });
 
-    console.log('✅ تم تسجيل الأوامر بنجاح');
+    logger.success(`✅ تم تسجيل ${data.length} أوامر بنجاح`);
+    logger.info(`الأوامر: ${data.map((cmd) => cmd.name).join(', ')}`);
   } catch (error) {
-    console.error('❌ فشل تسجيل الأوامر:', error);
+    logger.error('❌ فشل تسجيل الأوامر:', error.message);
+    process.exit(1);
   }
 })();
